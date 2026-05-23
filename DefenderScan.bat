@@ -2,13 +2,10 @@
 title Windows Defender Scan Tool
 color 0A
 
-:: Check for administrator privileges
+:: Self-elevate to administrator on double-click
 net session >nul 2>&1
 if %errorLevel% neq 0 (
-    echo Requesting administrator privileges...
-    echo This script requires administrator rights to function properly.
-    timeout /t 3
-    powershell -Command "Start-Process '%~f0' -Verb RunAs"
+    powershell -Command "Start-Process -FilePath '%~s0' -Verb RunAs"
     exit /b
 )
 
